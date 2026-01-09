@@ -1,0 +1,240 @@
+{
+  "info": {
+    "name": "Landing Backend API",
+    "description": "Professional Node.js backend API endpoints",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Root",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": [""]
+        },
+        "description": "Check if server is running"
+      },
+      "response": []
+    },
+    {
+      "name": "Health Check",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/health",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["health"]
+        },
+        "description": "Server health check with uptime"
+      },
+      "response": []
+    },
+    {
+      "name": "Database Health",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/health/db",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["health", "db"]
+        },
+        "description": "Database connectivity check"
+      },
+      "response": []
+    },
+    {
+      "name": "Create Contact (New API)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"John Doe\",\n  \"email\": \"john.doe@example.com\",\n  \"message\": \"This is a test message from Postman. I'm interested in your services and would like to get more information.\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:3000/api/contact",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["api", "contact"]
+        },
+        "description": "Create a new contact (requires database)"
+      },
+      "response": []
+    },
+    {
+      "name": "Create Contact (Legacy)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Jane Smith\",\n  \"email\": \"jane.smith@example.com\",\n  \"message\": \"Testing the legacy endpoint for backward compatibility. This should work the same as the new API.\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:3000/contact",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["contact"]
+        },
+        "description": "Legacy endpoint for backward compatibility (requires database)"
+      },
+      "response": []
+    },
+    {
+      "name": "Get Contact by ID",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/api/contact/1",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["api", "contact", "1"]
+        },
+        "description": "Get a specific contact by ID (requires database)"
+      },
+      "response": []
+    },
+    {
+      "name": "Get All Contacts",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/api/contacts?page=1&limit=10",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["api", "contacts"],
+          "query": [
+            {
+              "key": "page",
+              "value": "1"
+            },
+            {
+              "key": "limit",
+              "value": "10"
+            }
+          ]
+        },
+        "description": "Get all contacts with pagination (requires database)"
+      },
+      "response": []
+    },
+    {
+      "name": "Validation Test - Missing Fields",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Test User\",\n  \"email\": \"test@example.com\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:3000/api/contact",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["api", "contact"]
+        },
+        "description": "Test validation - missing message field (should return 400 error)"
+      },
+      "response": []
+    },
+    {
+      "name": "Validation Test - Invalid Email",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Test User\",\n  \"email\": \"invalid-email\",\n  \"message\": \"This should fail because email format is invalid\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:3000/api/contact",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["api", "contact"]
+        },
+        "description": "Test validation - invalid email format (should return 400 error)"
+      },
+      "response": []
+    },
+    {
+      "name": "Validation Test - Short Message",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Test User\",\n  \"email\": \"test@example.com\",\n  \"message\": \"Short\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:3000/api/contact",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["api", "contact"]
+        },
+        "description": "Test validation - message too short (should return 400 error)"
+      },
+      "response": []
+    },
+    {
+      "name": "404 Test",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/nonexistent",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["nonexistent"]
+        },
+        "description": "Test 404 error handling"
+      },
+      "response": []
+    }
+  ]
+}
